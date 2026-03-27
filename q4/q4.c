@@ -9,12 +9,16 @@ int main(){
     int a,b;
     scanf("%s %d %d", function_name, &a, &b);
 
-    char sofile_name[12] = "./lib";
+    char sofile_name[20] = "./lib";
     int n = strlen(function_name);
     for (int i = 0; i < n; i++) {
         sofile_name[5+i] = function_name[i];
     }
-    sofile_name[5+n] = '\0';
+    
+    sofile_name[5+n] = '.';
+    sofile_name[6+n] = 's';
+    sofile_name[7+n] = 'o';
+    sofile_name[8+n] = '\0';
     
     void* handle = dlopen(sofile_name, RTLD_LAZY);
     fptr function = dlsym(handle, function_name);
