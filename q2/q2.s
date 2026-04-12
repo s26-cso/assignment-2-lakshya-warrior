@@ -33,9 +33,9 @@ main:
 convert: # convert all to int
     beq s5, s1, start
     addi t1, s5, 1      
-    slli t1, t1, 3      # pointer
+    slli t1, t1, 3 # pointer
     add t1, s0, t1 #location of i+1th number
-    ld a0, 0(t1)      # Load string of number
+    ld a0, 0(t1) # Load string of number
     
     call atoi # Convert number from str to int
     

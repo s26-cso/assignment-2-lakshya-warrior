@@ -27,7 +27,7 @@ main:
     mv a0, s0
     call ftell # ftell(stream)
 
-    mv s1, a0           # length of string
+    mv s1, a0  # length of string
 
     addi s2, x0, 0# left
     addi s3, s1, -1  #right
@@ -38,7 +38,7 @@ loop:
     mv a0, s0
     mv a1, s2
     li a2, 0
-    call fseek # first argument is fileptr and second is the location
+    call fseek # first argument is fileptr and second is the location from start(0)
     mv a0, s0
     call fgetc
     mv t0, a0 # left char

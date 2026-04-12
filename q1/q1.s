@@ -13,7 +13,7 @@ make_node: # a0 has val
     
     ld t0, 8(sp)
     sw t0, 0(a0) # val
-    sd zero, 8(a0) # start of memory + 8 will have node->left = NULL
+    sd zero, 8(a0) # start of memory + 8 has node->left = NULL
     sd zero, 16(a0) # node->right = NULL
     
     ld ra, 0(sp)
@@ -67,7 +67,7 @@ finish_insert:
     addi sp, sp, 16
     ret
 
-get: # a0: root, a1: val
+get: # a0 --> root, a1 -> val
 ## if (root == NULL || root->val == target)
 #      return root;
 
@@ -79,11 +79,11 @@ get: # a0: root, a1: val
     lw t0, 0(a0)# root->val
     beq a1, t0, returnroot
     
-    bgt a1, t0, get_right # if a1 > t0 then right
+    bgt a1, t0, getright # if a1 > t0 then right
     
     ld a0, 8(a0)# root->left
     j get
-get_right:
+getright:
     ld a0, 16(a0) # root->right
     j get
 returnroot:

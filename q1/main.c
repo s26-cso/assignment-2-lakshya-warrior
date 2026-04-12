@@ -7,7 +7,6 @@ typedef struct node {
     struct node* right;
 }node;
 
-// Function prototypes from assembly
 node* make_node(int val);
 node* insert(node* root, int val);
 node* get(node* root, int val);
