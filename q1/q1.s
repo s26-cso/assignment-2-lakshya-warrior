@@ -34,18 +34,18 @@ insert: # a0 --> root and a1 is val
 traverse:
     addi sp, sp, -16
     sd ra, 0(sp)
-    sd s0, 8(sp)        # s0 will store our current root
-    mv s0, a0
+    sd s0, 8(sp)
+    mv s0, a0 # stores node
 
-    lw t0, 0(s0) # root->val
+    lw t0, 0(s0) # node->val
     blt a1, t0, left # if a1 < t0 then left
-    bgt a1, t0, right # if a1 < t0 then left
+    bgt a1, t0, right # if a1 > t0 then right
         
     mv a0, s0
     ld ra, 0(sp)
     ld s0, 8(sp)
     addi sp, sp, 16
-    ret
+    ret # return node
 
 left:
     ld a0, 8(s0) # root->left
@@ -75,9 +75,9 @@ get: # a0 --> root, a1 -> val
 #     return search(root->right, target);
 
 # return search(root->left, target);
-    beqz a0, returnroot
+    beqz a0, returnroot # root == NULL
     lw t0, 0(a0)# root->val
-    beq a1, t0, returnroot
+    beq a1, t0, returnroot #root->val == target
     
     bgt a1, t0, getright # if a1 > t0 then right
     

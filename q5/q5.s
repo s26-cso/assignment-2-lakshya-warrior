@@ -1,4 +1,4 @@
-.section .data
+.section .rodata
     filename: .string "input.txt"
     mode: .string "r"
     outputyes: .string "Yes\n"
@@ -19,21 +19,21 @@ main:
     call fopen # fopen("input.txt", "r") 
     mv s0, a0 # gives file pointer
 
-    mv a0, s0
     li a1, 0
     li a2, 2 # SEEK_END = 2
-    call fseek # fseek(stream, 0, SEEK_END)
-    
-    mv a0, s0
-    call ftell # ftell(stream)
+    call fseek # fseek(fileptr, 0, SEEK_END)
+    # goes to the last of the file
+
+    mv a0, s0 # ftell(fileptr)
+    call ftell # position if fileptr
 
     mv s1, a0  # length of string
 
     addi s2, x0, 0# left
-    addi s3, s1, -1  #right
+    addi s1, s1, -1  #right ptr
 
 loop:
-    bge s2, s3, yes # left >= right its a palindrome
+    bge s2, s1, yes # left >= right its a palindrome
 
     mv a0, s0
     mv a1, s2
@@ -44,7 +44,7 @@ loop:
     mv t0, a0 # left char
 
     mv a0, s0
-    mv a1, s3
+    mv a1, s1
     li a2, 0 # SEEK SET
     call fseek # first argument is fileptr and second is the location
     mv a0, s0
@@ -52,8 +52,8 @@ loop:
     mv t1, a0 # right char
 
     bne t0, t1, no # If not equal then not a palindrome
-    addi s2, s2, 1
-    addi s3, s3, -1
+    addi s2, s2, 1 # leftptr++
+    addi s1, s1, -1 #rightptr--;
     j loop
 
 yes:
