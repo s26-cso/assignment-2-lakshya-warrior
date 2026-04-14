@@ -29,7 +29,7 @@ insert: # a0 --> root and a1 is val
     ## else return make_node(val);
     bnez a0, traverse
     mv a0, a1
-    tail make_node
+    j make_node
 
 traverse:
     addi sp, sp, -16
@@ -113,7 +113,7 @@ whileloop:
     beqz a1, return_ans
     lw t1, 0(a1) # root->val
     
-    beq a0, t1, end
+    beq a0, t1, equalend
     bgt t1, a0, goleft # if t1 > t0 then target
     
     mv t0, t1 # ans = root->val;
@@ -124,7 +124,7 @@ goleft:
     ld a1, 8(a1)        # root->val > val, must look left
     j whileloop
 
-end:
+equalend:
     ret # a0 is already val
 
 return_ans:

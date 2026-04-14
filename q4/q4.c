@@ -8,7 +8,6 @@ int main(){
 while (1) {
     char function_name[7];
     int a,b;
-    // scanf("%s %d %d", function_name, &a, &b);
     if(scanf("%s %d %d", function_name, &a, &b) != 3){
         return 0;
     }
