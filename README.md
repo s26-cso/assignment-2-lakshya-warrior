@@ -13,3 +13,7 @@ docker exec -it 9480212daf9f /bin/bash
 gdb-multiarch ./t
 
 target remote :1234
+
+riscv64-linux-gnu-gcc -fPIC -shared add.c -o libadd.so
+
+qemu-riscv64 -L /usr/riscv64-linux-gnu/ ./q4 < input.txt 

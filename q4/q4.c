@@ -5,9 +5,13 @@
 typedef int (*fptr)(int, int);
 
 int main(){
+while (1) {
     char function_name[7];
     int a,b;
-    scanf("%s %d %d", function_name, &a, &b);
+    // scanf("%s %d %d", function_name, &a, &b);
+    if(scanf("%s %d %d", function_name, &a, &b) != 3){
+        return 0;
+    }
 
     char sofile_name[20] = "./lib";
     int n = strlen(function_name);
@@ -27,5 +31,6 @@ int main(){
     printf("%d\n", result);
 
     dlclose(handle);
+}
 return 0;
 }
