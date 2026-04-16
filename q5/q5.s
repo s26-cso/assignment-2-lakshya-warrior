@@ -8,7 +8,9 @@
 .globl main
 
 main:
-    addi sp, sp, -32 # store RA in stack
+    addi sp, sp, -48 # store RA in stack
+    sd s4, 40(sp)
+    sd s3, 32(sp)
     sd s0, 24(sp)
     sd s1, 16(sp)
     sd ra, 8(sp)
@@ -41,7 +43,7 @@ loop:
     call fseek # first argument is fileptr and second is the location from start(0)
     mv a0, s0
     call fgetc
-    mv t0, a0 # left char
+    mv s3, a0 # left char
 
     mv a0, s0
     mv a1, s1
@@ -49,9 +51,9 @@ loop:
     call fseek # first argument is fileptr and second is the location
     mv a0, s0
     call fgetc
-    mv t1, a0 # right char
+    mv s4, a0 # right char
 
-    bne t0, t1, no # If not equal then not a palindrome
+    bne s3, s4, no # If not equal then not a palindrome
     addi s2, s2, 1 # leftptr++
     addi s1, s1, -1 #rightptr--;
     j loop
@@ -59,19 +61,29 @@ loop:
 yes:
     la a0, outputyes
     call printf # print Yes
+    mv a0, s0
+    call fclose
+    li a0, 0
+    ld s4, 40(sp)
+    ld s3, 32(sp)
     ld s0, 24(sp)
     ld s1, 16(sp)
     ld ra, 8(sp)  
     ld s2, 0(sp)
-    addi sp, sp, 32
+    addi sp, sp, 48
     ret
 
 no:
     la a0, outputno
     call printf # print No
+    mv a0, s0
+    call fclose
+    li a0, 0
+    ld s4, 40(sp)
+    ld s3, 32(sp)
     ld s0, 24(sp)
     ld s1, 16(sp)
     ld ra, 8(sp)  
     ld s2, 0(sp)
-    addi sp, sp, 32
+    addi sp, sp, 48
     ret
