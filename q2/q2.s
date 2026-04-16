@@ -1,5 +1,6 @@
 .section .data
     output: .string "%d "
+    out: .string "%d\n"
 
 .section .text
 .globl main
@@ -102,6 +103,7 @@ push:
 
 return:
     addi s5, x0, 0          # i = 0
+    addi s1, s1, -1
 printresults:
     beq s5, s1, exit
     
@@ -115,6 +117,13 @@ printresults:
     j printresults
 
 exit:
+    la a0, out
+    slli t1, s5, 2
+    add t1, s3, t1
+    lw a1, 0(t1)      # Load result[i]
+    call printf
+    addi s5, s5, 1
+    
     ld ra, 40(sp)
     ld s0, 32(sp)
     ld s1, 24(sp)
